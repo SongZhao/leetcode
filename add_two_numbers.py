@@ -22,12 +22,8 @@ class Solution:
         head = None
         pre = None
         while l1 and l2:
-            if l1.val + l2.val + c >= 10:
-                node = ListNode(l1.val + l2.val + c - 10)
-                c = 1;
-            else:
-                node = ListNode(l1.val + l2.val + c)
-                c = 0
+            node = ListNode((l1.val + l2.val + c) % 10)
+            c = (l1.val + l2.val + c) / 10;
             if not head:
                 head = node
                 pre = node
@@ -38,23 +34,15 @@ class Solution:
             l2 = l2.next
         #l1 is longer than l2
         while l1:
-            if l1.val + c >= 10:
-                node = ListNode(l1.val + c - 10)
-                c = 1
-            else:
-                node = ListNode(l1.val + c)
-                c = 0
+            node = ListNode((l1.val + c) % 10)
+            c = (l1.val + c) / 10;
             pre.next = node
             pre = node
             l1 = l1.next
         #ls is longer than l1
         while l2:
-            if l2.val + c >= 10:
-                node = ListNode(l2.val + c - 10)
-                c = 1
-            else:
-                node = ListNode(l2.val + c)
-                c = 0
+            node = ListNode((l2.val + c) % 10)
+            c = (l2.val + c) / 10;
             pre.next = node
             pre = node
             l2 = l2.next
