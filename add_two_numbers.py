@@ -21,31 +21,19 @@ class Solution:
         c = 0
         head = None
         pre = None
-        while l1 and l2:
-            node = ListNode((l1.val + l2.val + c) % 10)
-            c = (l1.val + l2.val + c) / 10;
+        while l1 or l2:
+            v1 = l1.val if l1 else 0
+            v2 = l2.val if l2 else 0
+            node = ListNode((v1 + v2 + c) % 10)
+            c = (v1 + v2 + c) / 10;
             if not head:
                 head = node
                 pre = node
             else:
                 pre.next = node
                 pre = node
-            l1 = l1.next
-            l2 = l2.next
-        #l1 is longer than l2
-        while l1:
-            node = ListNode((l1.val + c) % 10)
-            c = (l1.val + c) / 10;
-            pre.next = node
-            pre = node
-            l1 = l1.next
-        #ls is longer than l1
-        while l2:
-            node = ListNode((l2.val + c) % 10)
-            c = (l2.val + c) / 10;
-            pre.next = node
-            pre = node
-            l2 = l2.next
+            l1 = l1.next if l1 else None
+            l2 = l2.next if l2 else None
         # adding is done, check if still has carry
         if c:
             node = ListNode(c)
