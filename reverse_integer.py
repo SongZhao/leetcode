@@ -27,12 +27,12 @@ class Solution:
 
     def reverse1(self, x):
         res = 0
-        neg = -1 if x < 0 else 1
+        sign = -1 if x < 0 else 1
         x = abs(x)
         while x > 0:
             res = res * 10 + x % 10
             x /= 10
-        return res * neg
+        return res * sign
 
 if __name__ == '__main__':
     s = Solution()
