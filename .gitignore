@@ -12,6 +12,7 @@
 # Ignore files with extension `.class` & `.sm`
 *.class
 *.sm
+*.exe
 
 # Ignore `bin` dir
 bin/
