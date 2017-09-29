@@ -8,15 +8,51 @@
 
 using namespace std;
 
+struct ListNode {
+    int val;
+    ListNode *next;
+
+    explicit ListNode(int x) : val(x), next(NULL) {}
+};
+
+ListNode* buildList(vector<int> &values) {
+    if (values.empty()) {
+        return nullptr;
+    }
+    ListNode* head = new ListNode(values[0]);
+    ListNode* cur;
+    ListNode* pre = head;
+    for (int i = 1; i < values.size(); ++i) {
+        cur = new ListNode(values[i]);
+        pre->next = cur;
+        pre = cur;
+    }
+    return head;
+}
+
+void printList(ListNode* head) {
+    while (head) {
+        cout << head->val << "->";
+        head = head->next;
+    }
+    cout << "NULL" << endl;
+}
+
 struct TreeNode {
     int val;
     TreeNode *left;
     TreeNode *right;
+
     explicit TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+
     void insert(bool left, int val) {
         left ? this->left = new TreeNode(val) : this->right = new TreeNode(val);
     }
+
     void print(int indent = 0) {
+        if (this == NULL) {
+            return;
+        }
         if (this->left) {
             this->left->print(indent + 4);
         }
