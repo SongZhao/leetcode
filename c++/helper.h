@@ -101,6 +101,8 @@ ostream &operator<<(ostream &out, const vector<T> &v) {
         out << '[';
         std::copy(v.begin(), v.end(), std::ostream_iterator<T>(out, ", "));
         out << "\b\b]";
+    } else {
+        out << "[]";
     }
     return out;
 }
@@ -109,9 +111,9 @@ template<typename T>
 ostream &operator<<(ostream &out, const vector<vector<T>> &v) {
     out << '[' << endl;
     for (int i = 0; i < v.size(); ++i) {
-        cout << "\t" << v[i] << endl;
+        out << "\t" << v[i] << endl;
     }
-    cout << "]" << endl;
+    out << "]" << endl;
     return out;
 }
 
