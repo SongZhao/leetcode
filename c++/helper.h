@@ -61,6 +61,24 @@ ListNode *mergeTwoLists(ListNode *l1, ListNode *l2) {
     return dummy.next;
 }
 
+ListNode* sortList(ListNode* head) {
+    if (!head || !head->next) {
+        return head;
+    }
+    ListNode *fast = head, *slow = head;
+    while (fast->next && fast->next->next) {
+        fast = fast->next->next;
+        slow = slow->next;
+    }
+    fast = slow->next;
+    slow->next = nullptr;
+
+    ListNode* p1 = sortList(head);
+    ListNode* p2 = sortList(fast);
+
+    return mergeTwoLists(p1, p2);
+}
+
 // return the last node after reverse
 ListNode *reverse(ListNode *pre, ListNode *end) {
     ListNode *cur = pre->next;
@@ -110,6 +128,7 @@ struct List {
         }
 
     }
+
 };
 
 /**********************************************************************************************************************/
