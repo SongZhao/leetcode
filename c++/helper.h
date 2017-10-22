@@ -8,20 +8,21 @@
 
 using namespace std;
 
+/*********************************************** List *****************************************************************/
 struct ListNode {
     int val;
     ListNode *next;
 
-    explicit ListNode(int x) : val(x), next(NULL) {}
+    explicit ListNode(int x) : val(x), next(nullptr) {}
 };
 
-ListNode* buildList(vector<int> &values) {
+ListNode *buildList(vector<int> &values) {
     if (values.empty()) {
         return nullptr;
     }
-    ListNode* head = new ListNode(values[0]);
-    ListNode* cur;
-    ListNode* pre = head;
+    ListNode *head = new ListNode(values[0]);
+    ListNode *cur;
+    ListNode *pre = head;
     for (int i = 1; i < values.size(); ++i) {
         cur = new ListNode(values[i]);
         pre->next = cur;
@@ -30,13 +31,90 @@ ListNode* buildList(vector<int> &values) {
     return head;
 }
 
-void printList(ListNode* head) {
+void printList(ListNode *head) {
     while (head) {
         cout << head->val << "->";
         head = head->next;
     }
     cout << "NULL" << endl;
 }
+
+ListNode *mergeTwoLists(ListNode *l1, ListNode *l2) {
+    ListNode dummy(0);
+    ListNode *p1 = l1, *p2 = l2, *p = &dummy;
+    while (p1 && p2) {
+        if (p1->val > p2->val) {
+            p->next = p2;
+            p2 = p2->next;
+        } else {
+            p->next = p1;
+            p1 = p1->next;
+        }
+        p = p->next;
+    }
+    if (p1) {
+        p->next = p1;
+    }
+    if (p2) {
+        p->next = p2;
+    }
+    return dummy.next;
+}
+
+// return the last node after reverse
+ListNode *reverse(ListNode *pre, ListNode *end) {
+    ListNode *cur = pre->next;
+    while (cur->next != end) {
+        ListNode *tmp = cur->next;
+        cur->next = tmp->next;
+        tmp->next =pre->next;
+        pre->next = tmp;
+    }
+    return cur;
+}
+
+struct List {
+    ListNode *head;
+
+    explicit List(ListNode *head) : head(head) {}
+
+    explicit List(vector<int> &values) : head(buildList(values)) {}
+
+    List() : head(nullptr) {}
+
+    void print() {
+        printList(head);
+    }
+
+    void free() {
+        while (head) {
+            ListNode* tmp = head;
+            head = head->next;
+            delete tmp;
+        }
+    }
+
+    void remove(ListNode *pre) {
+        if (pre && pre->next) {
+            ListNode *removedNode = pre->next;
+            pre->next = pre->next->next;
+            delete removedNode;
+        }
+    }
+
+    void removeHead() {
+        if (head) {
+            ListNode *removedNode = head;
+            head = head->next;
+            delete removedNode;
+        }
+
+    }
+};
+
+/**********************************************************************************************************************/
+
+/************************************************ Tree ****************************************************************/
 
 struct TreeNode {
     int val;
@@ -50,7 +128,7 @@ struct TreeNode {
     }
 
     void print(int indent = 0) {
-        if (this == NULL) {
+        if (this == nullptr) {
             return;
         }
         if (this->left) {
@@ -94,6 +172,10 @@ TreeNode *buildTree(vector<int> &preorder, vector<int> &inorder) {
 
     return build(preorder, 0, preorder.size() - 1, inorder, 0, inorder.size() - 1);
 }
+
+/**********************************************************************************************************************/
+
+/*********************************************** Print Utils **********************************************************/
 
 template<typename T>
 ostream &operator<<(ostream &out, const vector<T> &v) {
@@ -139,4 +221,5 @@ ostream &operator<<(ostream &out, const unordered_map<T1, T2> &m) {
     return out;
 }
 
+/**********************************************************************************************************************/
 
