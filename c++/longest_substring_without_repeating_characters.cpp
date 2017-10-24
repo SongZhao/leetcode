@@ -12,12 +12,34 @@ Given "pwwkew", the answer is "wke", with the length of 3. Note that the answer 
 
 
 /*
-Use two pointers, i(current_pos) and last_pos. and use a dict visited to save the most recent position for a char. line "last_pos = max(visited[s[i]] + 1, last_pos)" is the key. When we find an existing char, only update last_pos if the most recent appearance of the char is larger than last_pos. And don't forget to calculate when iter is over and specical cases len(s) <= 1
+ *
 */
+
+#include "helper.h"
 
 class Solution {
 public:
     int lengthOfLongestSubstring(string s) {
-        
+        unordered_map<char, int> map;
+        int maxLen = 0, start = -1;
+        for (int i = 0; i < s.length(); i++) {
+            if (map.find(s[i]) != map.end() && map[s[i]] > start) {
+                start = map[s[i]];
+            }
+            map[s[i]] = i;
+            maxLen = max(maxLen, i - start);
+        }
+        return maxLen;
     }
 };
+
+int main() {
+    Solution s;
+    cout << s.lengthOfLongestSubstring("abba") << endl;
+    cout << s.lengthOfLongestSubstring("abcabcbb") << endl;
+    cout << s.lengthOfLongestSubstring("dvdf") << endl;
+    cout << s.lengthOfLongestSubstring("bbbbb") << endl;
+    cout << s.lengthOfLongestSubstring("pwwkew") << endl;
+
+    return 0;
+}
