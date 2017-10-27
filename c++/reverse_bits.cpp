@@ -10,7 +10,7 @@ Related problem: Reverse Integer
 */
 
 /*
- * reverse first n - k elements, then reverse last k elements, then reverse all elements
+ *
 */
 
 #include "helper.h"
