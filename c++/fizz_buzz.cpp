@@ -28,7 +28,7 @@ Return:
  */
 
 /*
- * max len is even count + (odd count - 1) + hasOddCount
+ *
 */
 
 #include "helper.h"
