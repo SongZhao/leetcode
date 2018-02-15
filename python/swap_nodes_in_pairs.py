@@ -16,7 +16,7 @@ Use a dummy head.
 #     def __init__(self, x):
 #         self.val = x
 #         self.next = None
-from listnode import ListNode
+from python.listnode import ListNode
 
 class Solution:
     # @param a ListNode
